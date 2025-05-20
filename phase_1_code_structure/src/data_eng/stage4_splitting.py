@@ -1,15 +1,13 @@
 import argparse
 from sklearn.model_selection import train_test_split
 import pandas as pd
-#from build_features import GetData
-from data_eng.labeling import FeatureEngineering
-from data_eng.loading import GetData
+
+from src.data_eng.stage3_labeling import FeatureEngineering
+from src.data_eng.stage0_loading import GetData
 
 class SplitData:
     """
-    Simple version of SplitData for early-stage MLOps development.
-    - Loads raw data
-    - Applies feature engineering
+    Simple version of SplitData for early-stage MLOps development. 
     - Splits into train and test
     - Saves to local CSV files
     """
@@ -24,7 +22,6 @@ class SplitData:
         # Apply feature engineering (assumes it returns a transformed DataFrame)
         self.data = pd.read_csv(input_path, sep=",")
         print("Feature engineering retrieved.")
-        #print(self.input_path)
 
         # Split data
         self.train, self.test = train_test_split(self.data, test_size=0.2, random_state=42)

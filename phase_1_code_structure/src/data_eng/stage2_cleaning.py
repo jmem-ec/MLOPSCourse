@@ -3,18 +3,17 @@ import numpy as np
 import argparse
 import sys
 
-from data_eng.ingestion import LoadData
-from data_eng.loading import GetData
+from src.data_eng.stage1_ingestion import LoadData
+from src.data_eng.stage0_loading import GetData
 
 class Preprocessing:
     '''
     This class is for preprocessing the data like column_imputation,missing_value_handling,transforming the
     columns and so on
-    class return and save csv data to the specified folder path mentioned in params.yaml file
+    class return and save csv data to a specified folder path
     '''
     def __init__(self):
-        #pass
-        #self.load_data = LoadData()
+        self.load_data = LoadData()
         self.get_data = GetData()
 
     def column_imputation(self, input_path):
@@ -39,9 +38,7 @@ class Preprocessing:
             print("'impute_missing' FUNCTION STARTED")
             self.data = self.column_imputation(input_path)
             self.data = self.data.drop("dosage", axis=1)
-            #self.data["shipment_mode"].fillna("Air", inplace=True)
             self.data["shipment_mode"] = self.data["shipment_mode"].fillna("Air")
-            #self.data["line_item_insurance_(usd)"].fillna(47.04, inplace=True)
             self.data["line_item_insurance_(usd)"] = self.data["line_item_insurance_(usd)"].fillna(47.04)
 
             print("'impute_missing' FUNCTION COMPILED SUCCESSFULLY")
@@ -148,9 +145,6 @@ class Preprocessing:
     def drop_unnecessary_columns(self, input_path):
         try:
             print("'drop_unnecessary_columns' FUNCTION STARTED")
-            #self.config = self.get_data.read_params(input_path)
-            #print(input_path)
-            #print("borrar")
             self.data = self.transform_dates_columns(input_path)
             delete_columns = ["pq_#",'po_/_so_#', 'asn/dn_#','country', 'fulfill_via', 'vendor_inco_term',
                 'sub_classification', 'unit_of_measure_(per_pack)',
@@ -168,16 +162,6 @@ class Preprocessing:
             print(
                 "Failed to execute the code please check your code and run")
             raise Exception(e, sys) from e
-        
-        
-
-        
-        
-        
-        
-        
-        
-        
         
 
     def data_(self, input_path, output_path):

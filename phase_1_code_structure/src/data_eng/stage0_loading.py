@@ -4,7 +4,7 @@ import argparse
 
 class GetData:
     '''
-    The main functionality is to get data from source 
+    The main functionality is to get data from external source 
     Function return None 
     '''
 

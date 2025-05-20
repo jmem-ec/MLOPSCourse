@@ -1,15 +1,15 @@
 from sklearn.metrics import mean_absolute_error, r2_score, mean_squared_error
-#from build_features import GetData
 import os
 import json
 import joblib
 import sys
-import argparse
 from sklearn.model_selection import RandomizedSearchCV
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 import numpy as np
 from datetime import datetime
+
+from src.data_eng.stage0_loading import GetData
 
 MODEL_DIR = "models"
 MODEL_PATH = os.path.join(os.getcwd(), MODEL_DIR)
@@ -19,7 +19,7 @@ MAIN_PATH = os.path.join(MODEL_PATH, folder_name)
 
 class TrainEvaluate:
     def __init__(self):
-        #self.get_data = GetData()
+        self.get_data = GetData()
         self.filename = "model_rf.pkl"
 
     def evaluation_metrics(self, act, pred):

@@ -4,17 +4,15 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 
-from data_eng.loading import GetData
-from data_eng.ingestion import LoadData
-
-#pd.options.mode.chained_assignment = None  # default='warn'
+from src.data_eng.stage0_loading import GetData
+from src.data_eng.stage1_ingestion import LoadData
 
 
 class FeatureEngineering:
     '''
-    This is the stage 4 of this machine learning pipeline this is for feature engineering technique 
+    This machine learning pipeline this is for feature engineering technique 
     like outlier handling,column transformation using one hot and label encoding 
-    function return and save data as 'tranformed_data' folder mentioned in params.yaml file
+    function return and save data as 'processed_data' folder
     '''
 
     def __init__(self):
@@ -24,8 +22,7 @@ class FeatureEngineering:
     def data_(self, input_path):
         try:
             print("'data_' FUNCTION STARTED")
-            #self.config = self.get_data.read_params(config_path)
-            self.data = input_path #self.config["data"]["processed"]
+            self.data = input_path 
             self.data = pd.read_csv(self.data)
             print("Data loaded successfully")
             return self.data
@@ -141,7 +138,6 @@ class FeatureEngineering:
             
             print( "'data' FUNCTION STARTED")
             self.finaldata = self.feature_engineering(input_path)
-            #self.config = self.get_data.read_params(input_path)
             self.data.drop("Unnamed: 0", axis=1, inplace=True)
             self.data.to_csv(output_path, index=False)
             print( "Final Data for prediction successfully created")

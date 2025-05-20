@@ -2,12 +2,11 @@ import sys
 import pandas as pd
 import argparse
 
-from data_eng.loading import GetData
+from src.data_eng.stage0_loading import GetData
 
 class LoadData:
     '''
-    The main functionality of this class is to load the data to the folder path
-    we have assigned in params.yaml file
+    The main functionality of this class is to load the data to the project folder path
     function return data and save it to folder we have assigned
     '''
 
